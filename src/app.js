@@ -1,25 +1,30 @@
 import express from "express";
 
-const app = express()
+const app = express();
+app.use(express.json())
 
 const livros = [
-    {
-        id: 1,
-        titulo: "O senhor dos anéis"
-    },
-    {
-        id: 2,
-        titulo: "A revolução dos bichos"
-    }
-]
+  {
+    id: 1,
+    titulo: "O senhor dos anéis",
+  },
+  {
+    id: 2,
+    titulo: "A revolução dos bichos",
+  },
+];
 
 app.get("/", (req, res) => {
-    res.status(200).send("Curso de Node.js");
-})
+  res.status(200).send("Curso de Node.js");
+});
 
 app.get("/livros", (req, res) => {
-    res.status(200).json(livros);
-})
+  res.status(200).json(livros);
+});
 
+app.post("/livros", (req, res) => {
+    livros.push(req.body);
+    res.status(201).send("Livro cadastrado com sucesso")
+})
 
 export default app;
