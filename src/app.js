@@ -1,7 +1,7 @@
 import express from "express";
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
 
 const livros = [
   {
@@ -15,9 +15,9 @@ const livros = [
 ];
 
 function buscaLivro(id) {
-    return livros.findIndex(livro => {
-        return livro.id === Number(id);
-    })
+  return livros.findIndex((livro) => {
+    return livro.id === Number(id);
+  });
 }
 
 app.get("/", (req, res) => {
@@ -29,20 +29,26 @@ app.get("/livros", (req, res) => {
 });
 
 app.get("/livros/:id", (req, res) => {
-    const index = buscaLivro(req.params.id)
-    res.status(200).json(livros[index])
-})
+  const index = buscaLivro(req.params.id);
+  res.status(200).json(livros[index]);
+});
 
 app.post("/livros", (req, res) => {
-    livros.push(req.body);
-    res.status(201).send("Livro cadastrado com sucesso")
-})
+  livros.push(req.body);
+  res.status(201).send("Livro cadastrado com sucesso");
+});
 
 app.put("/livros/:id", (req, res) => {
-    const index = buscaLivro(req.params)
-    livros[index].titulo = req.body.titulo
-    res.status(200).send("Livro excluido com sucesso")
-})
+  const index = buscaLivro(req.params);
+  livros[index].titulo = req.body.titulo;
+  res.status(200).send("Livro excluido com sucesso");
+});
 
+app.delete("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  //metodo splice, primeiro parametro o indice do livro com o id passado como parametro e 1, pois é o único livro que queremos excluir
+  livros.splice(index, 1);
+  res.status(200).send("Livro excluído com sucesso");
+});
 
 export default app;
