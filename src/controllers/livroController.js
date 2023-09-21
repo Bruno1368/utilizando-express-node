@@ -1,3 +1,4 @@
+import { autor } from "../models/Autor.js";
 import livro from "../models/Livro.js";
 
 class LivroController {
@@ -9,11 +10,14 @@ class LivroController {
       res.status(500).json(`${error.message} - erro na requisição`);
     }
   }
-
+  // juntando livro e autor
   static async cadastrarLivro(req, res) {
+    const novoLivro = req.body;
     try {
-      const novoLivro = await livro.create(req.body);
-      res.status(201).json({ message: "Criado com sucesso", livro: novoLivro });
+      const autorEncontrado = await autor.findById(novoLivro.autor)
+      const livroCompleto = { ...novoLivro, autor: { ...autorEncontrado._doc } }
+      const livroCriado = await livro.create(livroCompleto);
+      res.status(201).json({ message: "Criado com sucesso", livro: livroCriado });
     } catch (error) {
       res
         .status(500)

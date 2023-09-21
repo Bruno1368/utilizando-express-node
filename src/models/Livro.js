@@ -1,6 +1,8 @@
 // MODELO É UM OBJETO QUE REPRESENTA UMA COLEÇÃO NA BASE DE DADOS
 
 import mongoose from "mongoose";
+//autor para ser referenciado
+import { autorSchema } from "./Autor.js";
 //criação de um novo esquema para adicionar os campos propriedade e o dado do valor da chave
 const livroSchema = new mongoose.Schema(
   {
@@ -10,7 +12,9 @@ const livroSchema = new mongoose.Schema(
     titulo: { type: String, required: true },
     editora: { type: String },
     preco: { type: Number },
-    pagina: { type: Number },
+    paginas: { type: Number },
+    //integrando
+    autor: autorSchema,
     //esse é o outro parametro do new mongoose.schema
   },
   { versionKey: false }
