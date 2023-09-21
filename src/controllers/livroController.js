@@ -41,11 +41,11 @@ class LivroController {
 
   static async deletarLivro(req, res) {
     try {
-      const id = req.params.id
-      await livro.findByIdAndDelete(id)
-      res.status(200).send({ message: "Livro deletado com sucesso" })
+      const id = req.params.id;
+      await livro.findByIdAndDelete(id);
+      res.status(200).send({ message: "Livro deletado com sucesso" });
     } catch (error) {
-      res.status(500).send(`${error.message} - Erro ao deletar livro`)
+      res.status(500).send(`${error.message} - Erro ao deletar livro`);
     }
   }
 }
