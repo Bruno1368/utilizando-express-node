@@ -4,13 +4,13 @@ import livro from "./models/Livro.js";
 
 const conexao = await conectaNaDatabase();
 
-conexao.on("error", (erro) =>{
-  console.error("Erro de conexão", erro)
-})
+conexao.on("error", (erro) => {
+  console.error("Erro de conexão", erro);
+});
 
 conexao.once("open", () => {
-  console.log("Conexão com o banco feita com sucesso")
-})
+  console.log("Conexão com o banco feita com sucesso");
+});
 
 const app = express();
 app.use(express.json());
@@ -22,11 +22,6 @@ app.get("/", (req, res) => {
 app.get("/livros", async (req, res) => {
   const listaLivros = await livro.find({});
   res.status(200).json(listaLivros);
-});
-
-app.get("/livros/:id", (req, res) => {
-  const index = buscaLivro(req.params.id);
-  res.status(200).json(livro[index]);
 });
 
 app.post("/livros", (req, res) => {
